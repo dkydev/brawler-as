@@ -13,6 +13,8 @@ package engine.component {
 		public var velY:Number = 0;
 		public var velZ:Number = 0;
 		
+		public var gravity:Number = -2;
+		
 		public var onGround:Boolean = false;
 		
 		public function MotionComponent(speedX:Number, speedY:Number, speedZ:Number):void {

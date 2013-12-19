@@ -9,7 +9,7 @@ package engine.system {
 		
 		private var _frictionX:Number = 1;
 		private var _frictionY:Number = 1;
-		private var _gravity:Number = 2;
+		private var _gravity:Number = -2;
 		
 		public function MotionSystem():void {
 			
@@ -19,22 +19,30 @@ package engine.system {
 		/* INTERFACE engine.system.ISystem */
 		public function update(levelManager:LevelManager):void {
 			
-			//for each (var entity:Entity in _entities) {
+			for each (var entity:Entity in _entities) {
 				
-				//entity.position.x += entity.motion.velX;
-				//entity.position.y += entity.motion.velY;
-				//entity.position.z += entity.motion.velZ;
-				//
-				//entity.motion.velZ -= _gravity;
+				entity.position.x += entity.motion.velX;
+				entity.position.y += entity.motion.velY;
+				entity.position.z += entity.motion.velZ;
 				
-			//}
+				if (entity.position.z <= 0) {
+					entity.position.z = 0;
+					entity.motion.velZ = 0;
+					entity.motion.onGround = true;
+				} else {
+					entity.motion.onGround = false;					
+				}
+				
+				entity.motion.velZ += entity.motion.gravity;
+				
+			}
 			
 		}
 		public function addEntity(entity:Entity):void {
 			
 			removeEntity(entity);
 			
-			if (!entity.motion || !entity.position || !entity.renderable) return;
+			if (!entity.motion || !entity.position || !entity.collision) return; // !entity.renderable) return;
 			
 			_entities.push(entity);
 			

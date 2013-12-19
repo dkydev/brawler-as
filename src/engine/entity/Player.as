@@ -21,7 +21,7 @@ package engine.entity {
 			action		= new PlayerAction();
 			motion 		= new MotionComponent(8, 8, 40);
 			position 	= new PositionComponent(x, y, z, width, height, depth);
-			collision   = new CollisionComponent(x, y, z, width, height, depth);
+			collision   = new CollisionComponent(0, 0, 0, width, height, depth);
 			renderable	= new PlayerRenderable();
 			
 		}

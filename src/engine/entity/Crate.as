@@ -21,7 +21,7 @@ package engine.entity {
 			
 			motion 		= new MotionComponent(0, 0, 0);		
 			position 	= new PositionComponent(x, y, z, width, height, depth);
-			//collision   = new CollisionComponent(new Hitbox(x, y, z, 160, 60, 100));
+			//collision   = new CollisionComponent(0, 0, 0, 160, 60, 100));
 			renderable 	= new ImageRenderable("crate");
 			
 		}

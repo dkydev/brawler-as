@@ -1,2 +1,2 @@
-BrawlerGame (working title (formerly "Smash Trivia"))
+Untitled Brawler Game (formerly "Smash Trivia")
 ===========

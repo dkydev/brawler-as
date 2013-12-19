@@ -2,10 +2,9 @@ package engine.entity {
 	
 	import engine.component.CollisionComponent;
 	import engine.component.Hitbox;
-	import engine.component.sprite.ImageSprite;
+	import engine.component.render.ImageRenderable;
 	import engine.component.MotionComponent;
 	import engine.component.PositionComponent;
-	import engine.component.SpriteComponent;
 	import engine.LevelManager;
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -16,10 +15,14 @@ package engine.entity {
 			
 			super("crate");
 			
+			var width:Number = 160;
+			var height:Number = 60;
+			var depth:Number = 100;
+			
 			motion 		= new MotionComponent(0, 0, 0);		
-			position 	= new PositionComponent(x, y, z, 160, 60, 100);
-			collision   = new CollisionComponent(new Hitbox(x, y, z, 160, 60, 100));
-			sprite 		= new ImageSprite("crate");
+			position 	= new PositionComponent(x, y, z, width, height, depth);
+			//collision   = new CollisionComponent(new Hitbox(x, y, z, 160, 60, 100));
+			renderable 	= new ImageRenderable("crate");
 			
 		}
 	}

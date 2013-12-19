@@ -4,9 +4,7 @@ package engine {
 	import engine.entity.Entity;
 	import engine.system.ISystem;
 	import starling.display.DisplayObject;
-	import starling.display.Image;
 	import starling.display.Sprite;
-	import starling.textures.Texture;
 	
 	public class StarlingGame extends Sprite implements ISystem {
 		
@@ -24,23 +22,29 @@ package engine {
 			_backgroundContainer = new Sprite();
 			_shadowContainer = new Sprite();
 			_entityContainer = new Sprite();
+			_foregroundContainer = new Sprite();
+			_menuContainer = new Sprite();
 			
 			scaleX = scaleY = 0.5;
 			
 			addChild(_backgroundContainer);
 			addChild(_shadowContainer);
 			addChild(_entityContainer);
+			addChild(_foregroundContainer);
+			addChild(_menuContainer);
 			
 		}
 		/* INTERFACE engine.system.ISystem */
 		public function update(levelManager:LevelManager):void {
 			
 			for each (var entity:Entity in _entities) {
-				entity.sprite.x = entity.position.x;
-				entity.sprite.y = entity.position.y;
-				entity.sprite.graphic.y = -entity.position.z;	
-				entity.sprite.shadow.x = entity.position.x;
-				entity.sprite.shadow.y = entity.position.y;
+				entity.renderable.container.x = entity.position.x;
+				entity.renderable.container.y = entity.position.y;
+				entity.renderable.graphic.y = entity.position.z;
+				entity.renderable.shadow.x = entity.position.x;
+				entity.renderable.shadow.y = entity.position.y;
+				entity.collision.hitboxImage.x = entity.position.x;
+				entity.collision.hitboxImage.y = entity.position.z;
 			}
 			_entityContainer.sortChildren(depthSort); // TODO: sort more efficiently
 			WorldClock.clock.advanceTime( -1);
@@ -49,18 +53,26 @@ package engine {
 		public function addEntity(entity:Entity):void {
 			
 			removeEntity(entity);
-			if (!entity.position || !entity.sprite) return;
+			if (!entity.position || !entity.renderable) return;
 			_entities.push(entity);
-			_entityContainer.addChild(entity.sprite);
-			_shadowContainer.addChild(entity.sprite.shadow);
+			_entityContainer.addChild(entity.renderable.container);
+			_shadowContainer.addChild(entity.renderable.shadow);
+			
+			_foregroundContainer.addChild(entity.collision.hitboxImage);
+			
+			WorldClock.clock.add(entity.renderable.armature);
 			
 		}
 		public function removeEntity(entity:Entity):void {
 			
 			if (_entities.indexOf(entity) != -1) {
 				_entities.splice(_entities.indexOf(entity), 1);
-				_entityContainer.removeChild(entity.sprite);
-				_shadowContainer.removeChild(entity.sprite.shadow);
+				_entityContainer.removeChild(entity.renderable.container);
+				_shadowContainer.removeChild(entity.renderable.shadow);
+				
+				_foregroundContainer.removeChild(entity.collision.hitboxImage);
+				
+				WorldClock.clock.remove(entity.renderable.armature);
 			}
 			
 		}

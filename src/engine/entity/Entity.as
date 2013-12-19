@@ -6,7 +6,7 @@ package engine.entity {
 	import engine.component.ActionComponent;
 	import engine.component.MotionComponent;
 	import engine.component.PositionComponent;
-	import engine.component.SpriteComponent;
+	import engine.component.RenderComponent;
 	import engine.GameEngine;
 	import engine.LevelManager;
 	
@@ -16,7 +16,7 @@ package engine.entity {
 		private var _action:ActionComponent;
 		private var _motion:MotionComponent;
 		private var _position:PositionComponent;
-		private var _sprite:SpriteComponent;
+		private var _renderable:RenderComponent;
 		private var _collision:CollisionComponent;
 		private var _entityID:String;
 		
@@ -31,11 +31,11 @@ package engine.entity {
 		public function get entityID():String {
 			return _entityID;
 		}
-		public function get sprite():SpriteComponent {
-			return _sprite;
+		public function get renderable():RenderComponent {
+			return _renderable;
 		}
-		public function set sprite(value:SpriteComponent):void {
-			_sprite = value;
+		public function set renderable(value:RenderComponent):void {
+			_renderable = value;
 		}
 		public function get position():PositionComponent {
 			return _position;

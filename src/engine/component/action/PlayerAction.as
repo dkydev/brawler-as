@@ -19,13 +19,13 @@ package engine.component.action {
 		}
 		public override function update(levelManager:LevelManager, entity:Entity):void {
 			
-			if (punch || entity.sprite.armature.animation.lastAnimationState.name == "punch") {				
-				if (entity.sprite.armature.animation.isComplete) {
+			if (punch || entity.renderable.armature.animation.lastAnimationState.name == "punch") {				
+				if (entity.renderable.armature.animation.isComplete) {
 					punch = 0;					
 				} else {
-					entity.motion.velX = -entity.sprite.graphic.scaleX * 15;
+					entity.motion.velX = -entity.renderable.graphic.scaleX * 15;
 					entity.motion.velY = 0;
-					entity.sprite.playAnimation("punch");
+					entity.renderable.playAnimation("punch");
 					return;
 				}				
 			}
@@ -33,10 +33,10 @@ package engine.component.action {
 			entity.motion.velX = (right - left) * entity.motion.speedX;
 			entity.motion.velY = (down - up) * entity.motion.speedY;
 			if (left && !right) {
-				entity.sprite.graphic.scaleX = 1;
+				entity.renderable.graphic.scaleX = 1;
 			}
 			if (right && !left) {
-				entity.sprite.graphic.scaleX = -1;
+				entity.renderable.graphic.scaleX = -1;
 			}
 			if (jump == 1) {
 				jump = 0;
@@ -46,15 +46,15 @@ package engine.component.action {
 			}
 			if (entity.motion.onGround) {
 				if ((left || right || up || down) && (entity.motion.velX != 0 || entity.motion.velY != 0)) {
-					entity.sprite.playAnimation("run");
+					entity.renderable.playAnimation("run");
 				} else {
-					entity.sprite.playAnimation("idle");
+					entity.renderable.playAnimation("idle");
 				}
 			} else {
 				if (entity.motion.velZ > 0) {
-					entity.sprite.playAnimation("jump");
+					entity.renderable.playAnimation("jump");
 				} else {						
-					entity.sprite.playAnimation("fall");
+					entity.renderable.playAnimation("fall");
 				}				
 			}
 			

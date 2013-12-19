@@ -1,6 +1,5 @@
 package engine {
 	
-	import engine.entity.Crate;
 	import engine.entity.Entity;
 	import engine.entity.Player;
 	import engine.StarlingGame;
@@ -53,9 +52,9 @@ package engine {
 			for (var i:int = 0; i < 2; i++) {
 				addEntity(new Player(i, 150 * i + 200, 400, 0));
 			}
-			for (var j:int = 0; j < 30; j++) {
+			//for (var j:int = 0; j < 30; j++) {
 				//addEntity(new Crate(Math.random()*500+200, Math.random()*400 + 200, Math.random()*600 + 100));
-			}
+			//}
 			
 		}
 		public function addEntity(entity:Entity):void {

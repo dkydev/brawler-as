@@ -12,14 +12,14 @@ package engine.component {
 		private var _height:Number;
 		private var _depth:Number;
 
-		public function PositionComponent(x:Number, y:Number, z:Number, width:Number, depth:Number, height:Number):void {
+		public function PositionComponent(x:Number, y:Number, z:Number, width:Number, height:Number, depth:Number):void {
 			
 			_x = x;
 			_y = y;
 			_z = z;
-			_width = width;
-			_depth = depth;
+			_width = width;			
 			_height = height;
+			_depth = depth;
 			
 		}
 		public function toString():String {

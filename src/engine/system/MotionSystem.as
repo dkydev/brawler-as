@@ -19,22 +19,22 @@ package engine.system {
 		/* INTERFACE engine.system.ISystem */
 		public function update(levelManager:LevelManager):void {
 			
-			for each (var entity:Entity in _entities) {
+			//for each (var entity:Entity in _entities) {
 				
-				entity.position.x += entity.motion.velX;
-				entity.position.y += entity.motion.velY;
-				entity.position.z += entity.motion.velZ;
+				//entity.position.x += entity.motion.velX;
+				//entity.position.y += entity.motion.velY;
+				//entity.position.z += entity.motion.velZ;
+				//
+				//entity.motion.velZ -= _gravity;
 				
-				entity.motion.velZ -= _gravity;
-				
-			}
+			//}
 			
 		}
 		public function addEntity(entity:Entity):void {
 			
 			removeEntity(entity);
 			
-			if (!entity.motion || !entity.position || !entity.sprite) return;
+			if (!entity.motion || !entity.position || !entity.renderable) return;
 			
 			_entities.push(entity);
 			

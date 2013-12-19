@@ -1,112 +1,75 @@
 package engine.system {
 	
+	import Box2D.Collision.b2AABB;
+	import Box2D.Collision.Shapes.b2PolygonShape;
+	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Common.Math.b2Vec3;
+	import Box2D.Dynamics.b2Body;
+	import Box2D.Dynamics.b2BodyDef;
+	import Box2D.Dynamics.b2Fixture;
+	import Box2D.Dynamics.b2FixtureDef;
+	import Box2D.Dynamics.b2World;
+	import dragonBones.animation.WorldClock;
+	import engine.component.CollisionComponent;
 	import engine.entity.Entity;
 	import engine.LevelManager;
+	import starling.display.Image;
 	
 	public class CollisionSystem implements ISystem {
 		
 		private var _entities:Vector.<Entity>;
-		private var _collisionEvents:Vector.<CollisionEvent>;
+		
+		private var _gravity:b2Vec2;
+		private var _world:b2World;
+		
+		public var ground:CollisionComponent;
 		
 		public function CollisionSystem():void {
 			
+			_gravity = new b2Vec2(0, 2);
+			_world = new b2World(_gravity, true);
+			
 			_entities = new Vector.<Entity>();
-			_collisionEvents = new Vector.<CollisionEvent>();
+			
+			ground = new CollisionComponent(0, 0, 0, 600, 20, 600, true);
+			ground.body = _world.CreateBody(ground.bodyDef);
+			ground.fixture = ground.body.CreateFixture(ground.fixtureDef);
+			
+			//_groundBodyDef = new b2BodyDef();
+			//_groundBodyDef.position.Set(0, 0);
+			//_groundBody = _world.CreateBody(_groundBodyDef);
+			//_groundFixtureDef = new b2FixtureDef();
+			//
+			//var groundShape:b2PolygonShape = new b2PolygonShape();
+			//groundShape.SetAsBox(600, 20);
+			//_groundFixtureDef.shape = groundShape;
+			//
+			//_groundFixture = _groundBody.CreateFixture(_groundFixtureDef);
+			//
+			//groundImage = new Image(Texture.fromColor(width, height, 0x64ff0064));
 			
 		}		
 		/* INTERFACE engine.system.ISystem */		
 		public function update(levelManager:LevelManager):void {
 			
-			var e1:Entity, e2:Entity;			
-			var dX:Number, dY:Number, dZ:Number;
-			var i:uint, j:uint, l:uint;
-			
-			var aX:Number, aY:Number, aZ:Number;
-			var d:Number;
-			
-			var dW:Number, dD:Number, dH:Number;
-			
-			l = _entities.length;
-			for (i = 0; i < l; i++) {				
-				e1 = _entities[i];
-				e1.motion.onGround = false;				
-				for (j = 0; j < l; j++) {
-					if (_entities[j] == e1) continue;
-					e2 = _entities[j];
-					dW = (e1.position.width	* 0.5	+ e2.position.width 	* 0.5);
-					dD = (e1.position.depth	* 0.5	+ e2.position.depth 	* 0.5);
-					dH = (e1.position.height * 0.5 	+ e2.position.height	* 0.5);
-					dX = Math.abs(e1.position.x + e1.motion.velX - e2.position.x + e2.motion.velX) - dW;
-					dY = Math.abs(e1.position.y + e1.motion.velY - e2.position.y + e2.motion.velY) - dD;
-					dZ = Math.abs(e1.position.z + e1.motion.velZ - e2.position.z + e2.motion.velZ) - dH;					
-					if (dX <= 0 && dY <= 0 && dZ <= 0) {						
-						
-						d = Math.sqrt(Math.pow(e1.motion.velX, 2) + Math.pow(e1.motion.velY, 2) + Math.pow(e1.motion.velZ, 2));
-						aX = c.dX / d;
-						aY = c.dY / d;
-						aZ = c.dZ / d;
-						
-						for (var i:int = 0; i < Math.ceil(a); i++) {
-							
-							dX = Math.abs(e1.position.x + aX - e2.position.x + e2.motion.velX) - dW;
-							dY = Math.abs(e1.position.y + aY - e2.position.y + e2.motion.velY) - dD;
-							dZ = Math.abs(e1.position.z + aZ - e2.position.z + e2.motion.velZ) - dH;
-							
-							if (dX <= 0 && dY <= 0 && dZ <= 0) {
-								
-								dX = 
-								
-							}
-							
-						}
-						
-						//_collisionEvents.push(new CollisionEvent(e1, e2, dX, dY, dZ));							
-					}
-				}				
-			}
-			
-			//var c:CollisionEvent;
-			//while (_collisionEvents.length > 0) {
-				//c = _collisionEvents.pop();
-				//
-				//var a = Math.sqrt(c.dX * c.dX + c.dY * c.dY + c.dZ * c.dZ);
-				//aX = c.dX / a;
-				//aY = c.dY / a;
-				//aZ = c.dZ / a;
-				//
-				//for (var i:int = 0; i < Math.ceil(a); i++) {
-					//
-					//
-					//
-				//}
+			var position:b2Vec2;
+			var vel:b2Vec2;
+			for each (var entity:Entity in _entities) {
 				
-				//if (c.e1.position.z > c.e2.position.z) c.dZ = 0.5 * dZ;
-				//if (c.dZ < -10) {
-					//if (c.e1.position.z > c.e2.position.z && c.e1.motion.velZ < 0) {						
-						//c.e1.motion.onGround = true;
-					//}
-					//c.e1.motion.velZ = 0;
-					//c.e1.motion.velX
-				//} else {
-					//if (Math.abs(c.dX) < Math.abs(c.dY)) {
-						//c.e1.position.x += c.dX;
-						//c.e1.motion.velX = 0;
-					//} else {
-						//c.e1.position.y += c.dY;
-						//c.e1.motion.velY = 0;
-					//}
-				//}				
-			//}
-			for (i = 0; i < l; i++) {
+				//newVel = entity.collision.body.GetLinearVelocity();
+				//newVel.Add(new b2Vec2(entity.motion.velX, entity.motion.velZ));
+				//entity.motion.velX = 0;
+				//entity.motion.velY = 0;
+				//entity.motion.velZ = 0;
+				//vel = entity.collision.body.GetLinearVelocity();
+				//vel.Add(new b2Vec2(entity.motion.velX, entity.motion.velZ));
+				//entity.collision.body.SetLinearVelocity(vel);
+				position = entity.collision.body.GetPosition();
+				entity.position.x = position.x;
+				entity.position.z = position.y;
 				
-				e1 = _entities[i];					
-				// floor collision
-				if (e1.position.z <= 0) {					
-					e1.position.z = 0;
-					e1.motion.velZ = 0;
-					e1.motion.onGround = true;					
-				}
 			}
+			_world.Step(1, 10, 10);
 			
 		}
 		public function addEntity(entity:Entity):void {
@@ -117,11 +80,15 @@ package engine.system {
 			
 			_entities.push(entity);
 			
+			entity.collision.body = _world.CreateBody(entity.collision.bodyDef);
+			entity.collision.fixture = entity.collision.body.CreateFixture(entity.collision.fixtureDef);
 		}
 		public function removeEntity(entity:Entity):void {
 			
 			if (_entities.indexOf(entity) != -1) {
 				_entities.splice(_entities.indexOf(entity), 1);
+				
+				//TODO: remove body / fixture
 			}
 			
 		}	

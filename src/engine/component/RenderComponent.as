@@ -10,14 +10,15 @@ package engine.component {
 	import starling.display.Sprite;
 	import starling.textures.Texture;
 	
-	public class SpriteComponent extends Sprite implements IComponent {
+	public class RenderComponent implements IComponent {
 		
+		private var _container:Sprite;
 		private var _graphic:Sprite;
 		private var _image:Image;
 		private var _armature:Armature;
 		private var _shadow:Image;
 		
-		public function SpriteComponent():void {
+		public function RenderComponent():void {
 			
 			super();
 			
@@ -28,6 +29,12 @@ package engine.component {
 				_armature.animation.gotoAndPlay(animationName);
 			}
 			
+		}
+		public function get container():Sprite {
+			return _container;
+		}		
+		public function set container(value:Sprite):void {
+			_container = value;
 		}
 		public function get armature():Armature {
 			return _armature;

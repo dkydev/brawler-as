@@ -19,21 +19,28 @@ package engine.system {
 		/* INTERFACE engine.system.ISystem */
 		public function update(levelManager:LevelManager):void {
 			
-			for each (var entity:Entity in _entities) {
+			for each (var entity:Entity in _entities) {				
 				
-				entity.position.x += entity.motion.velX;
-				entity.position.y += entity.motion.velY;
-				entity.position.z += entity.motion.velZ;
+				entity.motion.velocity.y += entity.motion.gravity;
 				
-				if (entity.position.z <= 0) {
-					entity.position.z = 0;
-					entity.motion.velZ = 0;
+				entity.position.position.incrementBy(entity.motion.velocity);			
+				
+				
+				//entity.position.x += entity.motion.velocity.x;
+				//entity.position.y += entity.motion.velocity.y;
+				//entity.position.z += entity.motion.velocity.z;
+				
+				entity.motion.onGround = false;
+				
+				/*if (entity.position.y <= 0) {
+					entity.position.y = 0;
+					entity.motion.velocity.y = 0;
 					entity.motion.onGround = true;
+					entity.motion.velocity.x *= entity.motion.friction;				
+					entity.motion.velocity.z *= entity.motion.friction;
 				} else {
 					entity.motion.onGround = false;					
-				}
-				
-				entity.motion.velZ += entity.motion.gravity;
+				}*/
 				
 			}
 			

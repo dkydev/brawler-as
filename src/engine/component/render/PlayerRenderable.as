@@ -1,7 +1,5 @@
 package engine.component.render {
 	
-	import dragonBones.animation.WorldClock;
-	import engine.component.RenderComponent;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	
@@ -16,10 +14,8 @@ package engine.component.render {
 			armature 	= AssetManager.getArmature("player");
 			shadow 		= new Image(AssetManager.textureAtlas.getTexture("shadow"));
 			
-			graphic.addChild(armature.display as Sprite);
-			
-			shadow.pivotX = shadow.width * 0.5;
-			shadow.pivotY = shadow.height * 0.5 - 10;
+			var armatureSprite:Sprite = armature.display as Sprite;			
+			graphic.addChild(armatureSprite);
 			
 			armature.animation.gotoAndPlay("idle");
 			

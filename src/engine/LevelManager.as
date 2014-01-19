@@ -1,10 +1,12 @@
 package engine {
 	
+	import engine.entity.Block;
+	import engine.entity.Crate;
 	import engine.entity.Entity;
 	import engine.entity.Player;
 	import engine.StarlingGame;
 	import engine.system.ActionSystem;
-	import engine.system.CollisionSystem;
+	import engine.system.collision.CollisionSystem;
 	import engine.system.ISystem;
 	import engine.system.MotionSystem;
 	import starling.core.Starling;
@@ -29,9 +31,10 @@ package engine {
 			_collisionSystem = new CollisionSystem();
 			_starlingGame = Starling.current.root as StarlingGame;
 			
-			_systems.push(_actionSystem);
+						
 			_systems.push(_collisionSystem);
-			_systems.push(_motionSystem);
+			_systems.push(_actionSystem);
+			_systems.push(_motionSystem);			
 			_systems.push(_starlingGame);
 			
 		}
@@ -41,20 +44,23 @@ package engine {
 				system.update(this);
 			}
 			
-			Console.clear();
-			for each (var entity:Entity in _entities) {
-				Console.log(entity, entity.position);
-			}
+			//Console.clear();
+			//for each (var entity:Entity in _entities) {
+				//Console.log(entity, entity.position);
+			//}
 			
 		}
 		public function loadLevel(string:String):void {
 			
-			for (var i:int = 0; i < 2; i++) {
-				addEntity(new Player(i, 150 * i + 200, 400, 0));
+			addEntity(new Block(100, 0, 400, 600, 100, 400));
+			addEntity(new Block(700, 100, 400, 600, 100, 400));
+			
+			addEntity(new Player(1, 150, 150, 600));
+			addEntity(new Player(2, 300, 150, 600));
+			
+			for (var j:int = 0; j < 2; j++) {
+				addEntity(new Crate(Math.random()*500+200, Math.random()*400 + 200, Math.random()*600 + 100));
 			}
-			//for (var j:int = 0; j < 30; j++) {
-				//addEntity(new Crate(Math.random()*500+200, Math.random()*400 + 200, Math.random()*600 + 100));
-			//}
 			
 		}
 		public function addEntity(entity:Entity):void {

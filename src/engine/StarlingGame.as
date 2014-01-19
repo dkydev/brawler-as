@@ -39,12 +39,14 @@ package engine {
 			
 			for each (var entity:Entity in _entities) {
 				entity.renderable.container.x = entity.position.x;
-				entity.renderable.container.y = entity.position.y;
-				entity.renderable.graphic.y = -entity.position.z;
-				entity.renderable.shadow.x = entity.position.x;
-				entity.renderable.shadow.y = entity.position.y;
+				entity.renderable.container.y = entity.position.z;
+				entity.renderable.graphic.y = -entity.position.y;
+				if (entity.renderable.shadow) {
+					entity.renderable.shadow.x = entity.position.x;
+					entity.renderable.shadow.y = entity.position.z;
+				}
 				entity.collision.hitboxImage.x = entity.position.x;
-				entity.collision.hitboxImage.y = entity.position.y;
+				entity.collision.hitboxImage.y = entity.position.z - entity.position.y;
 			}
 			_entityContainer.sortChildren(depthSort); // TODO: sort more efficiently
 			WorldClock.clock.advanceTime( -1);
@@ -56,7 +58,8 @@ package engine {
 			if (!entity.position || !entity.renderable) return;
 			_entities.push(entity);
 			_entityContainer.addChild(entity.renderable.container);
-			_shadowContainer.addChild(entity.renderable.shadow);			
+			if (entity.renderable.shadow)
+				_shadowContainer.addChild(entity.renderable.shadow);			
 			_foregroundContainer.addChild(entity.collision.hitboxImage);
 			
 			WorldClock.clock.add(entity.renderable.armature);

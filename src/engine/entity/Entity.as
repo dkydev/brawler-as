@@ -1,14 +1,11 @@
 package engine.entity {
 	
-	import engine.component.CollisionComponent;
-	import engine.component.IComponent;
+	import engine.component.action.ActionComponent;
+	import engine.component.collision.CollisionComponent;
 	import engine.component.InputComponent;
-	import engine.component.ActionComponent;
 	import engine.component.MotionComponent;
 	import engine.component.PositionComponent;
-	import engine.component.RenderComponent;
-	import engine.GameEngine;
-	import engine.LevelManager;
+	import engine.component.render.RenderComponent;
 	
 	public class Entity {
 		

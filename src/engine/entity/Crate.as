@@ -1,7 +1,6 @@
 package engine.entity {
 	
-	import engine.component.CollisionComponent;
-	import engine.component.Hitbox;
+	import engine.component.collision.CollisionComponent;
 	import engine.component.render.ImageRenderable;
 	import engine.component.MotionComponent;
 	import engine.component.PositionComponent;
@@ -16,13 +15,14 @@ package engine.entity {
 			super("crate");
 			
 			var width:Number = 160;
-			var height:Number = 60;
-			var depth:Number = 100;
+			var height:Number = 100;
+			var depth:Number = 60;
 			
 			motion 		= new MotionComponent(0, 0, 0);		
 			position 	= new PositionComponent(x, y, z, width, height, depth);
-			//collision   = new CollisionComponent(0, 0, 0, 160, 60, 100));
+			collision   = new CollisionComponent(0, 0, 0, width, height, depth);
 			renderable 	= new ImageRenderable("crate");
+			renderable.image.pivotY = height;
 			
 		}
 	}

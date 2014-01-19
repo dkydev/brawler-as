@@ -49,7 +49,7 @@ package  {
 			if (_initialized) {
 				
 				var text:String = _textfield.text;
-				_textfield.text = "".concat(args, "\n", text);
+				_textfield.text = "".concat(args.join(" "), "\n", text);
 				_background.height = _textfield.textHeight + 10;
 				
 			}

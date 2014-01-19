@@ -2,64 +2,58 @@ package engine.component {
 	
 	import engine.entity.Entity;
 	import engine.GameEngine;
+	import flash.geom.Vector3D;
 	
 	public class PositionComponent implements IComponent {
 		
-		private var _x:Number;
-		private var _y:Number;
-		private var _z:Number;
-		private var _width:Number;
-		private var _height:Number;
-		private var _depth:Number;
+		public var position:Vector3D;
+		public var dimension:Vector3D;
 
 		public function PositionComponent(x:Number, y:Number, z:Number, width:Number, height:Number, depth:Number):void {
 			
-			_x = x;
-			_y = y;
-			_z = z;
-			_width = width;			
-			_height = height;
-			_depth = depth;
+			position = new Vector3D(x, y, z);
+			dimension = new Vector3D(width, height, depth);
 			
 		}
 		public function toString():String {
-			return _x + ", " + _y + ", " + _z;
+			return position.x + ", " + position.y + ", " + position.z;
 		}
-		public function get depth():Number {
-			return _depth;
-		}		
-		public function set depth(value:Number):void {
-			_depth = value;
-		}		
-		public function get height():Number {
-			return _height;
-		}		
-		public function set height(value:Number):void {
-			_height = value;
+		
+		public function get x():Number {
+			return position.x;
+		}
+		public function get y():Number {
+			return position.y;
+		}
+		public function get z():Number {
+			return position.z;
+		}
+		public function set x(x:Number):void {
+			position.x = x;
+		}
+		public function set y(y:Number):void {
+			position.y = y;
+		}
+		public function set z(z:Number):void {
+			position.z = z;
 		}		
 		public function get width():Number {
-			return _width;
-		}		
-		public function set width(value:Number):void {
-			_width = value;
-		}		
-		public function get z():Number {
-			return _z;
-		}		
-		public function set z(value:Number):void {
-			_z = value;
-		}		
-		public function get y():Number {
-			return _y;
-		}		
-		public function set y(value:Number):void {
-			_y = value;
-		}		
-		public function get x():Number {
-			return _x;
-		}		
-		public function set x(value:Number):void {
-			_x = value;
+			return dimension.x;
+		}
+		public function get height():Number {
+			return dimension.y;
+		}
+		public function get depth():Number {
+			return dimension.z;
+		}
+		public function set width(width:Number):void {
+			dimension.x = width;
+		}
+		public function set height(height:Number):void {
+			dimension.y = height;
+		}
+		public function set depth(depth:Number):void {
+			dimension.z = depth;
 		}
 	}
 }

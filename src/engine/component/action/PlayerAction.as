@@ -2,7 +2,7 @@ package engine.component.action {
 	
 	import engine.entity.Entity;
 	import engine.LevelManager;
-	import engine.component.ActionComponent;
+	import engine.component.action.ActionComponent;
 	import engine.component.IComponent;
 	
 	public class PlayerAction extends ActionComponent implements IComponent {
@@ -23,15 +23,15 @@ package engine.component.action {
 				if (entity.renderable.armature.animation.isComplete) {
 					punch = 0;					
 				} else {
-					entity.motion.velX = -entity.renderable.graphic.scaleX * 15;
-					entity.motion.velY = 0;
+					entity.motion.velocity.x = -entity.renderable.graphic.scaleX * 15;
+					entity.motion.velocity.y = 0;
 					entity.renderable.playAnimation("punch");
 					return;
 				}				
 			}
 			
-			entity.motion.velX = (right - left) * entity.motion.speedX;
-			entity.motion.velY = (down - up) * entity.motion.speedY;
+			entity.motion.velocity.x = (right - left) * entity.motion.speed.x;
+			entity.motion.velocity.z = (down - up) * entity.motion.speed.z;
 			if (left && !right) {
 				entity.renderable.graphic.scaleX = 1;
 			}
@@ -41,17 +41,17 @@ package engine.component.action {
 			if (jump == 1) {
 				jump = 0;
 				if (entity.motion.onGround) {
-					entity.motion.velZ = entity.motion.speedZ;
+					entity.motion.velocity.y = entity.motion.speed.y;
 				}
 			}
 			if (entity.motion.onGround) {
-				if ((left || right || up || down) && (entity.motion.velX != 0 || entity.motion.velY != 0)) {
+				if ((left || right || up || down) && (entity.motion.velocity.x != 0 || entity.motion.velocity.z != 0)) {
 					entity.renderable.playAnimation("run");
 				} else {
 					entity.renderable.playAnimation("idle");
 				}
 			} else {
-				if (entity.motion.velZ > 0) {
+				if (entity.motion.velocity.y > 0) {
 					entity.renderable.playAnimation("jump");
 				} else {						
 					entity.renderable.playAnimation("fall");

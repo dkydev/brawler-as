@@ -21,8 +21,9 @@ package engine.entity {
 			motion 		= new MotionComponent(0, 0, 0);		
 			position 	= new PositionComponent(x, y, z, width, height, depth);
 			collision   = new CollisionComponent(0, 0, 0, width, height, depth);
-			renderable 	= new ImageRenderable("crate");
-			renderable.image.pivotY = height;
+			renderable 	= new ImageRenderable("crate", 0, height);
+			
+			renderable.shadow.scaleX = renderable.shadow.scaleY = 2;
 			
 		}
 	}

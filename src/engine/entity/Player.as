@@ -24,6 +24,9 @@ package engine.entity {
 			position 	= new PositionComponent(x, y, z, width, height, depth);
 			collision   = new CollisionComponent(0, 0, 0, width, height, depth);
 			renderable	= new PlayerRenderable();
+			renderable.container.pivotX = width * -0.5;
+			renderable.container.pivotY = depth * -0.5;
+			renderable.shadow.pivotX = width * 0.5;
 			
 			motion.friction = 1;
 			

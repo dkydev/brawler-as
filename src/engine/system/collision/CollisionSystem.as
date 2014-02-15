@@ -100,6 +100,7 @@ package engine.system.collision {
 			
 			if (normal.y == -1) {
 				e1.motion.onGround = true;
+				e1.motion.velocity.scaleBy(e1.motion.friction);
 			}
 			
 			// Calculate relative velocity

@@ -14,7 +14,7 @@ package engine.component.render {
 			armature 	= AssetManager.getArmature("player");
 			shadow 		= new Image(AssetManager.textureAtlas.getTexture("shadow"));
 			
-			var armatureSprite:Sprite = armature.display as Sprite;			
+			var armatureSprite:Sprite = armature.display as Sprite;
 			graphic.addChild(armatureSprite);
 			
 			armature.animation.gotoAndPlay("idle");

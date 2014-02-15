@@ -19,11 +19,11 @@ package engine {
 			
 			_entities = new Vector.<Entity>();
 			
-			_backgroundContainer = new Sprite();
-			_shadowContainer = new Sprite();
-			_entityContainer = new Sprite();
-			_foregroundContainer = new Sprite();
-			_menuContainer = new Sprite();
+			_backgroundContainer 	= new Sprite();
+			_shadowContainer 		= new Sprite();
+			_entityContainer 		= new Sprite();
+			_foregroundContainer 	= new Sprite();
+			_menuContainer 			= new Sprite();
 			
 			scaleX = scaleY = 0.5;
 			
@@ -36,8 +36,12 @@ package engine {
 		}
 		/* INTERFACE engine.system.ISystem */
 		public function update(levelManager:LevelManager):void {
+
+			_entities.sort(depthSort);
 			
+			Console.clear();
 			for each (var entity:Entity in _entities) {
+				Console.log(entity, entity.position);
 				entity.renderable.container.x = entity.position.x;
 				entity.renderable.container.y = entity.position.z;
 				entity.renderable.graphic.y = -entity.position.y;
@@ -47,8 +51,10 @@ package engine {
 				}
 				entity.collision.hitboxImage.x = entity.position.x;
 				entity.collision.hitboxImage.y = entity.position.z - entity.position.y;
+				_entityContainer.addChild(entity.renderable.container);
 			}
-			_entityContainer.sortChildren(depthSort); // TODO: sort more efficiently
+			
+			//_entityContainer.sortChildren(depthSort); // TODO: sort more efficiently
 			WorldClock.clock.advanceTime( -1);
 			
 		}
@@ -60,7 +66,7 @@ package engine {
 			_entityContainer.addChild(entity.renderable.container);
 			if (entity.renderable.shadow)
 				_shadowContainer.addChild(entity.renderable.shadow);			
-			_foregroundContainer.addChild(entity.collision.hitboxImage);
+			//_foregroundContainer.addChild(entity.collision.hitboxImage);
 			
 			WorldClock.clock.add(entity.renderable.armature);
 			
@@ -77,8 +83,18 @@ package engine {
 			}
 			
 		}
-		private function depthSort(a:DisplayObject, b:DisplayObject):int {
-			return a.y > b.y ? 1 : -1;
+		private function depthSort(a:Entity, b:Entity):int {
+			
+			var ad:Number = a.position.z - (a.position.y + a.position.height);
+			var bd:Number = b.position.z - (b.position.y + b.position.height);
+			
+			if (ad > bd) { // && a.position.y > b.position.y + b.position.height) {
+				return 1;
+			} else if (ad < bd) {// || a.position.y < b.position.y + b.position.height) {
+				return -1;
+			}
+			return  0;
+			
 		}
 		public function get entityContainer():Sprite {
 			return _entityContainer;

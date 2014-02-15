@@ -32,7 +32,7 @@ package engine.system {
 				
 				entity.motion.onGround = false;
 				
-				/*if (entity.position.y <= 0) {
+				if (entity.position.y <= 0) {
 					entity.position.y = 0;
 					entity.motion.velocity.y = 0;
 					entity.motion.onGround = true;
@@ -40,7 +40,7 @@ package engine.system {
 					entity.motion.velocity.z *= entity.motion.friction;
 				} else {
 					entity.motion.onGround = false;					
-				}*/
+				}
 				
 			}
 			

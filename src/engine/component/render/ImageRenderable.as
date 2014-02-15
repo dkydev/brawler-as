@@ -5,7 +5,7 @@ package engine.component.render {
 	
 	public class ImageRenderable extends RenderComponent {
 		
-		public function ImageRenderable(imageId:String) {
+		public function ImageRenderable(imageId:String, pivotX:Number = 0, pivotY:Number = 0) {
 			
 			super();
 			
@@ -14,11 +14,10 @@ package engine.component.render {
 			image 		= new Image(AssetManager.textureAtlas.getTexture(imageId));
 			shadow 		= new Image(AssetManager.textureAtlas.getTexture("shadow"));
 			
-			//image.pivotX = image.width * 0.5;
-			//image.pivotY = image.height * 0.5 + 50;
-			//shadow.pivotX = shadow.width * 0.5;
-			//shadow.pivotY = shadow.height * 0.5 - 15;
-			shadow.scaleX = shadow.scaleY = 2;
+			image.pivotX = pivotX
+			image.pivotY = pivotY;
+			
+			shadow.pivotX = pivotX + shadow.width * 0.5;
 			
 			graphic.addChild(image);
 			container.addChild(graphic);

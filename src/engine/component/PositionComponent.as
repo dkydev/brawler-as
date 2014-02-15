@@ -17,8 +17,7 @@ package engine.component {
 		}
 		public function toString():String {
 			return position.x + ", " + position.y + ", " + position.z;
-		}
-		
+		}		
 		public function get x():Number {
 			return position.x;
 		}

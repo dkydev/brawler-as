@@ -52,15 +52,17 @@ package engine {
 		}
 		public function loadLevel(string:String):void {
 			
-			addEntity(new Block(100, 0, 400, 600, 100, 400));
-			addEntity(new Block(700, 100, 400, 600, 100, 400));
-			
 			addEntity(new Player(1, 150, 150, 600));
 			addEntity(new Player(2, 300, 150, 600));
 			
-			for (var j:int = 0; j < 2; j++) {
-				addEntity(new Crate(Math.random()*500+200, Math.random()*400 + 200, Math.random()*600 + 100));
-			}
+			addEntity(new Block(0, 0, 0, 800, 600, 400));
+			addEntity(new Block(100, 0, 400, 600, 100, 400));
+			addEntity(new Block(700, 200, 400, 600, 100, 400));
+			
+			addEntity(new Crate(400, 200, 500));
+			addEntity(new Crate(800, 200, 500));
+			
+			_entities[6].motion.mass = 0.05;
 			
 		}
 		public function addEntity(entity:Entity):void {
